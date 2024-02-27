@@ -2,8 +2,13 @@ from discord.ext import commands
 import discord
 import os
 import asyncio
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+print(BOT_TOKEN)
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix = "$", intents = intents)
