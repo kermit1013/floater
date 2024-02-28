@@ -4,6 +4,7 @@ from discord import app_commands
 import httpx
 import json
 import pendulum
+from discord.app_commands import Choice
 
 # 定義名為 Main 的 Cog
 class Main(commands.Cog):
@@ -12,9 +13,27 @@ class Main(commands.Cog):
     
     # @app_commands.describe(參數名稱 = 參數敘述)
     # 參數: 資料型態，可以限制使用者輸入的內容
-    @app_commands.command(name = "buoyant", description = "取得過去五小時浮標資料")
-    @app_commands.describe(location = "輸入資料站編號")
-    async def add(self, interaction: discord.Interaction, location: str):
+    @app_commands.command(name = "buoy", description = "取得過去五小時浮標資料")
+    @app_commands.describe(location = "選擇")
+    @app_commands.choices(
+        location=[
+            Choice(name="龍洞", value="46694A"),
+            Choice(name="花蓮", value="46699A"),
+            Choice(name="龜山島", value="46708A"),
+            Choice(name="小琉球", value="46714D"),
+            Choice(name="大鵬灣", value="46744A"),
+            Choice(name="新竹", value="46757B"),
+            Choice(name="富貴角", value="C6AH2"),
+            Choice(name="彭佳嶼", value="C6B01"),
+            Choice(name="臺中", value="C6F01"),
+            Choice(name="臺東外洋", value="C6S62"),
+            Choice(name="蘭嶼", value="C6S94"),
+            Choice(name="東沙島", value="C6V27"),
+            Choice(name="馬祖", value="C6W08"),
+            Choice(name="七美", value="C6W10"),
+        ]
+    )
+    async def buoy(self, interaction: discord.Interaction, location: str):
         url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-B0075-001"
         headers = {
             "Authorization": "rdec-key-123-45678-011121314",
